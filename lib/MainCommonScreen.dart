@@ -25,7 +25,27 @@ class _MainCommonState extends State<MainCommon> {
     return MaterialApp(
       home: SafeArea(child: Scaffold(
         body: _pageOptions[_selectedIndex],
-      //  bottomNavigationBar: BottomNavigationBar(items: const<Widget>[]),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text("Home"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon((Icons.dashboard),),
+            title: Text("Dashboard"),
+            )
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blueAccent,
+          backgroundColor: Colors.black,
+          unselectedItemColor: Colors.white,
+          onTap: (int index){
+            setState(() {
+              _selectedIndex=index;
+            });
+          },
+        ),
       )),
     );
   }

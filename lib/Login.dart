@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_j_comp/MainCommonScreen.dart';
 
 class Login extends StatelessWidget {
   static const String id ="login_screen";
@@ -8,11 +9,12 @@ class Login extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Center(
                 child: GestureDetector(
                     onTap: (){
-
+                      Navigator.pushNamed(context, MainCommon.id);
                     },
                     child: Icon(Icons.add)),
               ),

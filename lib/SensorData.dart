@@ -9,9 +9,13 @@ class SensorData extends StatefulWidget {
 class _SensorDataState extends State<SensorData> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child : Text("Call sensor data here"),
+    return MaterialApp(
+      home: SafeArea(child: Scaffold(
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[Center(child: Text("Call sensor data here")),],
+    ),
+      )),
     );
   }
 }

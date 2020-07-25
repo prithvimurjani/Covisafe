@@ -11,6 +11,7 @@ class _SensorDataState extends State<SensorData> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue,
+      child : Text("Call sensor data here"),
     );
   }
 }

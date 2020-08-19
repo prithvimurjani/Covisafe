@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "735635570351",
+    "firebase_url": "https://covisafe-b89de.firebaseio.com",
+    "project_id": "covisafe-b89de",
+    "storage_bucket": "covisafe-b89de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735635570351:android:c45a3cf7f21f3c94af5e5a",
+        "android_client_info": {
+          "package_name": "com.murjani.iot_j_comp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735635570351-80mmrvrmu9i0tp418u7hi5lqq29gr8re.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUr9O1bDVGRr2ckz8biFXYw_LkdndCCIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735635570351-80mmrvrmu9i0tp418u7hi5lqq29gr8re.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
                     },
                     child: Icon(Icons.add)),
               ),
-              Text("Add the default google sign in button above this ")
+              Text("Add the default google sign in button above this. ")
             ],
           ),
         ),

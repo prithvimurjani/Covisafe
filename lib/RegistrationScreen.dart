@@ -1,26 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_j_comp/MainCommonScreen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'constants.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
-class Login extends StatefulWidget {
-  static const String id = "login_screen";
+class RegistrationScreen extends StatefulWidget {
+  static const String id = 'registration_screen';
   @override
-  _LoginState createState() => _LoginState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
 
-  bool showSpinner= false;
+  bool showSpinner = false;
   final _auth = FirebaseAuth.instance;
   String email;
   String password;
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +25,8 @@ class _LoginState extends State<Login> {
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         progressIndicator: SpinKitFadingGrid(
-          color: Colors.white,
-          size: 50.0,
+        color: Colors.white,
+        size: 50.0,
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -38,7 +34,6 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-
               SizedBox(
                 height: 48.0,
               ),
@@ -58,7 +53,7 @@ class _LoginState extends State<Login> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  password=value;
+                  password = value;
                   //Do something with the user input.
                 },
                 decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your password'),
@@ -66,23 +61,23 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 24.0,
               ),
-
-              RoundedButton(colour: Colors.lightBlueAccent,title: 'Log in',onPressed: () async{
+              RoundedButton(colour: Colors.blueAccent,title: 'Register',onPressed: ()async{
                 setState(() {
                   showSpinner=true;
                 });
+                print(email);
+                print(password);
                 try{
-                  final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
-                if(user!=null){
-                  Navigator.pushNamed(context, MainCommon.id);
-                }
-                setState(() {
-                  showSpinner=false;
-                });
+                  final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                  if(newUser!=null){
+                    Navigator.pushNamed(context, MainCommon.id);
+                  }
+                  setState(() {
+                    showSpinner=false;
+                  });
                 }catch(err){
                   print(err);
                 }
-
 
               },)
             ],
@@ -92,3 +87,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+

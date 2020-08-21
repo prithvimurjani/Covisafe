@@ -13,20 +13,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('IOT J COMP'),
+            Center(child: Text('IOT J COMP',style: TextStyle(color: Colors.white),)),
             SizedBox(
               height: 48.0,
             ),
-            RoundedButton(buttonColor: Colors.lightBlueAccent, title: 'Log in',onPressed:(){ Navigator.pushNamed(context, Login.id);},),
+            RoundedButton(buttonColor: Colors.purple, title: 'LOG IN',onPressed:(){ Navigator.pushNamed(context, Login.id);},),
 
-            RoundedButton(buttonColor: Colors.blueAccent, title: 'Register',onPressed:(){ Navigator.pushNamed(context, RegistrationScreen.id);},),
+            Padding(
+              padding: const EdgeInsets.only(top:30.0),
+              child: RoundedButton(buttonColor: Colors.white, title: 'REGISTER',onPressed:(){ Navigator.pushNamed(context, RegistrationScreen.id);},),
+            ),
           ],
         ),
       ),

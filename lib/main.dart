@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_j_comp/ResetPassword.dart';
 import 'package:iot_j_comp/WelcomeScreen.dart';
 import 'package:iot_j_comp/MainCommonScreen.dart';
 import 'package:iot_j_comp/SensorData.dart';
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
         RegistrationScreen.id:(context) =>RegistrationScreen(),
         MainCommon.id : (context) => MainCommon(),
         SensorData.id:(context)=>SensorData(),
+        ResetPass.id : (context)=> ResetPass(),
         SomethingElse.id : (context) => SomethingElse(),
       },
 

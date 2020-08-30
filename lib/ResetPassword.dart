@@ -1,40 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:iot_j_comp/MainCommonScreen.dart';
-import 'package:iot_j_comp/RegistrationScreen.dart';
-import 'package:iot_j_comp/ResetPassword.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'constants.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'RegistrationScreen.dart';
 
-class Login extends StatefulWidget {
-  static const String id = "login_screen";
+class ResetPass extends StatefulWidget {
+  static const String id = 'reset pass';
   @override
-  _LoginState createState() => _LoginState();
+  _ResetPassState createState() => _ResetPassState();
 }
 
-class _LoginState extends State<Login> {
+class _ResetPassState extends State<ResetPass> {
 
-  bool showSpinner= false;
-  final _auth = FirebaseAuth.instance;
   String email;
-  String password;
-
-//  void showToast() {
-//    FlutterFlexibleToast.showToast(
-//      message: "Login failed",
-//      toastLength: Toast.LENGTH_LONG,
-//      toastGravity: ToastGravity.BOTTOM,
-//      elevation: 10,
-//      textColor: Colors.blue,
-//      backgroundColor: Colors.white,
-//    );
-//  }
-
-
+  final _auth = FirebaseAuth.instance;
+  bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +33,7 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Welcome Back!',style: TextStyle(color: Colors.blue,fontSize: 32.0),),
+              Text('We\'ve got you back!',style: TextStyle(color: Colors.blue,fontSize: 32.0),),
               //Icon(FontAwesome.smile_o,color: Colors.blue,),
 
               Column(
@@ -63,24 +45,11 @@ class _LoginState extends State<Login> {
                     style: TextStyle(color: Colors.white),
                     onChanged: (value) {
                       email = value;
+                      print(email);
                       //Do something with the user input.
                     },
                     decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your email',hintStyle: TextStyle(color: Colors.white)),
                   ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                    onChanged: (value) {
-                      password=value;
-                      //Do something with the user input.
-                    },
-                    decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your password',hintStyle: TextStyle(color: Colors.white)),
-                  ),
-
                 ],
               ),
 
@@ -90,22 +59,22 @@ class _LoginState extends State<Login> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(top:80.0),
-                        child: RoundedButton(colour: Colors.blue,title: 'Login',onPressed: () async{
+                        child: RoundedButton(colour: Colors.blue,title: 'Reset!',onPressed: () async {
                           setState(() {
                             showSpinner=true;
                           });
+                          print(email);
+
                           try{
-                            final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
-                          if(user!=null){
-                            Navigator.pushNamed(context, MainCommon.id);
-                          }
-                          setState(() {
-                            showSpinner=false;
-                          });
+                            final resetPass = await _auth.sendPasswordResetEmail(email: email);
+                            setState(() {
+                              showSpinner=false;
+                            });
                           }catch(err){
                             print(err);
                           }
 
+                          print('Reset pressed');
 
                         },),
                       ),

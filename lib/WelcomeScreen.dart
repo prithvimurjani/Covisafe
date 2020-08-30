@@ -19,16 +19,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         backgroundColor: Colors.black54,
         body:Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: ListView(
+             padding:  EdgeInsets.only(top:120,left: 8,right: 8),
                 children: <Widget>[
                   Center(child: Text('WELCOME TO SCDAA.',style: TextStyle(color: Colors.blue,fontSize: 32.0),)),
 
                   Center(child: Text('ECE 3026',style: TextStyle(color: Colors.white,fontSize:16.0),)),
                   SizedBox(
-                    height: 270.0,
+                    height: 150.0,
                   ),
                   RoundedButton(colour: Colors.blue, title: 'LOGIN',onPressed:(){ Navigator.pushNamed(context, Login.id);},),
 
@@ -45,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
           ),
-      ),
+
     );
   }
 }

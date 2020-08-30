@@ -48,14 +48,14 @@ class _LoginState extends State<Login> {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: ListView(
+             padding: EdgeInsets.only(top:120,left: 8,right: 8),
                 children: <Widget>[
                   Text('Welcome Back!',style: TextStyle(color: Colors.blue,fontSize: 32.0),),
                   //Icon(FontAwesome.smile_o,color: Colors.blue,),
-
+                  SizedBox(
+                    height: 90.0,
+                  ),
                   Column(
                     children: <Widget>[
 
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
                       Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top:80.0),
+                            padding: const EdgeInsets.only(top:40.0),
                             child: RoundedButton(colour: Colors.blue,title: 'Login',onPressed: () async{
                               setState(() {
                                 showSpinner=true;
@@ -111,6 +111,7 @@ class _LoginState extends State<Login> {
 
                             },),
                           ),
+
                           GestureDetector(
                               onTap: (){
                                 Navigator.pushNamed(context, RegistrationScreen.id);
@@ -151,7 +152,6 @@ class _LoginState extends State<Login> {
             ),
           ),
         ),
-      ),
     );
   }
 }

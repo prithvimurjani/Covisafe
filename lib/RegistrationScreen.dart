@@ -21,9 +21,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final DBRef = FirebaseDatabase.instance.reference();
   String email;
   String password;
-  double temp=0.0;
-  double distance=35.0;
-  String areaReside='';
+  double temp = 0.0;
+  double distance = 35.0;
+  String areaReside = '';
   String alertLevel = "HIGH";
 
 //  Future<void> initialDetails(String email) async {
@@ -35,107 +35,125 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+//        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.black,
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           progressIndicator: SpinKitFadingGrid(
-          color: Colors.white,
-          size: 50.0,
+            color: Colors.white,
+            size: 50.0,
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text('Get on board!',style: TextStyle(color: Colors.blue,fontSize: 32.0),),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: ListView(
+              padding: EdgeInsets.only(top:120,left: 8,right: 8),
+//              child: Column(
+//                mainAxisAlignment: MainAxisAlignment.end,
+//                crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Text('Get on board!',
+                  style: TextStyle(color: Colors.blue, fontSize: 32.0),),
 
-                  SizedBox(
-                    height: 48.0,
-                  ),
-                  TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.blue),
-                    onChanged: (value) {
-                      email = value;
-                      //Do something with the user input.
-                    },
-                    decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your email',hintStyle: TextStyle(color: Colors.blue)),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.blue),
-                    onChanged: (value) {
-                      password = value;
-                      //Do something with the user input.
-                    },
-                    decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your password',hintStyle: TextStyle(color: Colors.blue)),
-                  ),
-                  SizedBox(
-                    height: 24.0,
-                  ),
-                  RoundedButton(colour: Colors.blueAccent,title: 'Register',onPressed: ()async{
+                SizedBox(
+                  height: 90.0,
+                ),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.blue),
+                  onChanged: (value) {
+                    email = value;
+                    //Do something with the user input.
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Enter your email',
+                      hintStyle: TextStyle(color: Colors.blue)),
+                ),
+                SizedBox(
+                  height: 8.0,
+                ),
+                TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.blue),
+                  onChanged: (value) {
+                    password = value;
+                    //Do something with the user input.
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Enter your password',
+                      hintStyle: TextStyle(color: Colors.blue)),
+                ),
+                SizedBox(
+                  height: 24.0,
+                ),
+                RoundedButton(colour: Colors.blueAccent,
+                  title: 'Register',
+                  onPressed: () async {
                     setState(() {
-                      showSpinner=true;
+                      showSpinner = true;
                     });
                     print(email);
                     print(password);
-                    try{
-                      final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                      if(newUser!=null)
-                        {
-                          DBRef.child("Users").push().set({
-                            'email' : email,
-                            'temp' : temp,
-                            'distance' : distance,
-                            'area' : areaReside,
-                            'alertLevel' : alertLevel,
-                          }).then((_) {
-                            setState(() {
-                              showSpinner=false;
-                            });
-
-                            Navigator.pushNamed(context, MainCommon.id);
-                          }).catchError((onError){
-                            print(onError);
+                    try {
+                      final newUser = await _auth
+                          .createUserWithEmailAndPassword(
+                          email: email, password: password);
+                      if (newUser != null) {
+                        DBRef.child("Users").push().set({
+                          'email': email,
+                          'temp': temp,
+                          'distance': distance,
+                          'area': areaReside,
+                          'alertLevel': alertLevel,
+                        }).then((_) {
+                          setState(() {
+                            showSpinner = false;
                           });
-                           }
-                    }catch(err){
+
+                          Navigator.pushNamed(context, MainCommon.id);
+                        }).catchError((onError) {
+                          print(onError);
+                        });
+                      }
+                    } catch (err) {
                       print(err);
                     }
-
                   },),
                 GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pushNamed(context, Login.id);
                     },
-                    child: Center(child: Text("EXISTING USER!",style: TextStyle(color: Colors.blue,fontSize: 16,fontStyle: FontStyle.italic),))),
+                    child: Center(child: Text("EXISTING USER!",
+                      style: TextStyle(color: Colors.blue,
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic),))),
 
-          Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top:25.0),
-                        child: Center(child: Text('HERE FOR YOU.',style: TextStyle(color: Colors.blue,fontSize:20.0,fontStyle: FontStyle.italic),)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top:15.0),
-                        child: Icon(FontAwesome.life_saver,color: Colors.blue,size: 75.0,),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
+                      child: Center(
+                          child: Text('HERE FOR YOU.', style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 20.0,
+                              fontStyle: FontStyle.italic),)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Icon(FontAwesome.life_saver, color: Colors.blue,
+                        size: 75.0,),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
+//      ),
+//    );
+
   }
 }
-

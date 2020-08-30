@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:convert';
 
 class SensorData extends StatefulWidget {
   static const String id = "sensorDataScreen";
@@ -9,8 +10,11 @@ class SensorData extends StatefulWidget {
 }
 
 class _SensorDataState extends State<SensorData> {
-  final DBRef = FirebaseDatabase.instance.reference().child('Users');
+  DatabaseReference ref = FirebaseDatabase.instance.reference().child('Users');
   List lists = [];
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,13 +23,15 @@ class _SensorDataState extends State<SensorData> {
     body: Column(
       children: <Widget>[
         FutureBuilder(
-          future: DBRef.once(),
+          future: ref.once(),
           builder: (context, AsyncSnapshot<DataSnapshot> snapshot){
             if(snapshot.hasData){
               lists.clear();
               Map<dynamic,dynamic> values = snapshot.data.value;
-              print(values);
-              values.forEach((key, value) { lists.add(values);
+//              var email=jsonDecode(values)['MFyIaXlWI5uWv6garzz']['email'];
+
+//              values.forEach((k, v) => lists.add(Data));
+              values.forEach((k,v) { lists.add(values[k]);
               });
               return ListView.builder(
                 shrinkWrap: true,
@@ -35,7 +41,7 @@ class _SensorDataState extends State<SensorData> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("email : " + lists[index]['email'].toString()),
+                        Text("email : " +lists[index]['email'].toString()),
 
                         Text("temp : " + lists[index]['temp'].toString()),
 

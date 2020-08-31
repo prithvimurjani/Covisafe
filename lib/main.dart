@@ -3,7 +3,7 @@ import 'package:iot_j_comp/ResetPassword.dart';
 import 'package:iot_j_comp/WelcomeScreen.dart';
 import 'package:iot_j_comp/MainCommonScreen.dart';
 import 'package:iot_j_comp/SensorData.dart';
-import 'package:iot_j_comp/SomethingElse.dart';
+import 'package:iot_j_comp/HomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:iot_j_comp/Login.dart';
 import 'package:iot_j_comp/RegistrationScreen.dart';
@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
     initialRoute: WelcomeScreen.id,
       routes: {
       WelcomeScreen.id : (context) => WelcomeScreen(),

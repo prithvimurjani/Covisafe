@@ -16,7 +16,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black54,
+        backgroundColor: Colors.black,
         body:Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: ListView(

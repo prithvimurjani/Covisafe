@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iot_j_comp/SensorData.dart';
-import 'package:iot_j_comp/SomethingElse.dart';
+import 'package:iot_j_comp/HomeScreen.dart';
 
 class MainCommon extends StatefulWidget {
   static const String id = "maincommonscreen";
@@ -23,7 +23,9 @@ class _MainCommonState extends State<MainCommon> {
     ];
 
     return MaterialApp(
+      color: Colors.black,
       home: SafeArea(child: Scaffold(
+        backgroundColor: Colors.black,
         body: _pageOptions[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           items: [

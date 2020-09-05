@@ -24,7 +24,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 children: <Widget>[
                   Center(child: Text('WELCOME TO SCDAA.',style: TextStyle(color: Colors.blue,fontSize: 32.0),)),
 
-                  Center(child: Text('ECE 3026',style: TextStyle(color: Colors.white,fontSize:16.0),)),
                   SizedBox(
                     height: 150.0,
                   ),

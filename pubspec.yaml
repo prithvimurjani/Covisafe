@@ -33,6 +33,7 @@ dependencies:
   flutter_auth_buttons: ^0.8.0
   flutter_spinkit: ^4.1.2
   flutter_flexible_toast: ^0.1.4
+  geolocator: ^6.1.0
 
 
 

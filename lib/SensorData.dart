@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 
 
@@ -13,9 +14,26 @@ class SensorData extends StatefulWidget {
 class _SensorDataState extends State<SensorData> {
   DatabaseReference ref=FirebaseDatabase.instance.reference().child('/Users');
 //  DatabaseReference ref = FirebaseDatabase.instance.reference().child('MFxzpxpDiU0VdfkphsS');
+
   List lists = [];
+  double latitude=85;
+  double longitude=89;
+  void getLocation() async{
+    Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    latitude=position.latitude;
+    longitude=position.longitude;
+    print(longitude);
+    print(latitude);
+
+  }
 
   @override
+//  void initState(){
+//    super.initState();
+//    getLocation();
+//  }
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: SafeArea(
@@ -23,6 +41,11 @@ class _SensorDataState extends State<SensorData> {
               backgroundColor: Colors.black,
               body: Column(
                 children: <Widget>[
+                  RaisedButton(
+                    onPressed: (){
+                      getLocation();
+                    },
+                  ),
                   FutureBuilder(
                       future: ref.once(),
                       builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
@@ -42,8 +65,8 @@ class _SensorDataState extends State<SensorData> {
                                 return Card(
                                   color: Colors.white10,
                                   child: Column(
-//                                      crossAxisAlignment:
-//                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text("email : " +
                                             lists[index]['email'].toString(),style: TextStyle(color: Colors.blueAccent),),
@@ -52,7 +75,7 @@ class _SensorDataState extends State<SensorData> {
                                         Text("distance: " +
                                             lists[index]['distance'].toString(), style: TextStyle(color: Colors.blueAccent)),
                                         Text("area : " +
-                                            lists[index]['area'].toString(),style: TextStyle(color: Colors.blueAccent)),
+                                            latitude.toString(),style: TextStyle(color: Colors.blueAccent)),
                                         Text("Alert : " +
                                             lists[index]['alertLevel']
                                                 .toString(),style: TextStyle(color: Colors.blueAccent)),

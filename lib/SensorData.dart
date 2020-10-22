@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
 
 
 
@@ -16,7 +17,7 @@ class _SensorDataState extends State<SensorData> {
 
   List lists = [];
   double latitude=85;
-  double longitude=89;
+  double longitude=21;
   void getLocation() async{
     Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     latitude=position.latitude;

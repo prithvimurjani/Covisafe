@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     Firebase.initializeApp().whenComplete(() {
       print("completed");
+      
       setState(() {
 
       });

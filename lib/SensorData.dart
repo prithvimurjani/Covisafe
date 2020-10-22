@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 
 
 
-
 class SensorData extends StatefulWidget {
   static const String id = "sensorDataScreen";
   @override
@@ -12,7 +11,7 @@ class SensorData extends StatefulWidget {
 }
 
 class _SensorDataState extends State<SensorData> {
-  DatabaseReference ref=FirebaseDatabase.instance.reference().child('/Users');
+  DatabaseReference ref=FirebaseDatabase.instance.reference().child('/TODAY');
 //  DatabaseReference ref = FirebaseDatabase.instance.reference().child('MFxzpxpDiU0VdfkphsS');
 
   List lists = [];
@@ -41,44 +40,34 @@ class _SensorDataState extends State<SensorData> {
               backgroundColor: Colors.black,
               body: Column(
                 children: <Widget>[
-                  RaisedButton(
-                    onPressed: (){
-                      getLocation();
-                    },
-                  ),
+                  
                   FutureBuilder(
                       future: ref.once(),
                       builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
                         if (snapshot.hasData) {
-                          lists.clear();
+                        //  print(snapshot.data.value);
+                           lists.clear();
+                          
                           Map<dynamic, dynamic> values = snapshot.data.value;
-//              var email=jsonDecode(values)['MFyIaXlWI5uWv6garzz']['email'];
-
-//              values.forEach((k, v) => lists.add(Data));
                           values.forEach((k, v) {
                             lists.add(values[k]);
+                            print(k);
+                            print(v);
                           });
                           return ListView.builder(
                               shrinkWrap: true,
-                              itemCount: lists.length,
+                              itemCount: 1,
                               itemBuilder: (BuildContext context, int index) {
                                 return Card(
-                                  color: Colors.white10,
+                                  color: Colors.black,
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text("email : " +
-                                            lists[index]['email'].toString(),style: TextStyle(color: Colors.blueAccent),),
-                                        Text("temp : " +
-                                            lists[index]['temp'].toString(),style: TextStyle(color: Colors.blueAccent)),
-                                        Text("distance: " +
-                                            lists[index]['distance'].toString(), style: TextStyle(color: Colors.blueAccent)),
-                                        Text("area : " +
-                                            latitude.toString(),style: TextStyle(color: Colors.blueAccent)),
-                                        Text("Alert : " +
-                                            lists[index]['alertLevel']
-                                                .toString(),style: TextStyle(color: Colors.blueAccent)),
+                                        FitCardBig(parameter: 'TEMPERATURE',concurrentdata: lists[0],iconparam: Icon(Icons.healing), ),
+                                      FitCardBig(parameter: 'DISTANCE',concurrentdata: lists[1],iconparam: Icon(Icons.alarm_on), ),
+                                      
                                       ],
                                     ),
 
@@ -87,8 +76,65 @@ class _SensorDataState extends State<SensorData> {
                         }
                         return CircularProgressIndicator();
                       }),
+                      SizedBox(height: 100.0,),
+                      Container(
+                        height: 75.0,
+                        width: 200.0,
+                        child: RaisedButton(
+                          
+                          color: Colors.blueAccent,
+                          child: Text('Push Location'),
+                    onPressed: (){
+                        getLocation();
+                    },
+                  ),
+                      ),
                 ],
               ))),
     );
   }
 }
+
+class FitCardBig extends StatelessWidget {
+  FitCardBig({this.parameter, this.concurrentdata,this.iconparam});
+
+  final String parameter;
+  final String concurrentdata;
+  final Icon iconparam;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding:  EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Text(parameter.toUpperCase(),style: TextStyle(fontSize: 15,color: Colors.blueAccent, fontWeight: FontWeight.bold,),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Text(concurrentdata.toString(),style: TextStyle(fontSize :50,color: Colors.blueAccent,fontWeight: FontWeight.bold),),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+            child: Icon(iconparam.icon,color: Colors.blueAccent,size: 36.0,),
+          ),
+
+        ],
+      ),
+      width: 340.0,
+      height: 175.0,
+      margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
+      decoration: BoxDecoration(
+     //   boxShadow: [BoxShadow(color: Colors.white,spreadRadius: 1.0,)],
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(15.0),
+        border: Border.all(color: Colors.blueAccent,width: 2.0,style : BorderStyle.solid),
+      ),
+
+    );
+  }
+}
+

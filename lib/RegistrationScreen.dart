@@ -21,10 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final DBRef = FirebaseDatabase.instance.reference();
   String email;
   String password;
-  double temp = 0.0;
-  double distance = 35.0;
-  String areaReside = '';
-  String alertLevel = "HIGH";
+  String phoneNumber = "9982756235";
 
 //  Future<void> initialDetails(String email) async {
 //    final confirmData = await
@@ -100,12 +97,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           .createUserWithEmailAndPassword(
                           email: email, password: password);
                       if (newUser != null) {
-                        DBRef.child("Users").push().set({
+                        DBRef.child("Government Database").push().set({
                           'email': email,
-                          'temp': temp,
-                          'distance': distance,
-                          'area': areaReside,
-                          'alertLevel': alertLevel,
+                          'phone number' : phoneNumber,
+                          
                         }).then((_) {
                           setState(() {
                             showSpinner = false;

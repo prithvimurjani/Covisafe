@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final DBRef = FirebaseDatabase.instance.reference();
   String email;
   String password;
-  String phoneNumber = "9982756235";
+  String phoneNumber;
+  String name;
 
-//  Future<void> initialDetails(String email) async {
-//    final confirmData = await
-//
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +57,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.blue),
                   onChanged: (value) {
+                    name = value;
+                    //Do something with the user input.
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Enter your name',
+                      hintStyle: TextStyle(color: Colors.blue)),
+                ),
+                SizedBox(
+                  height: 8.0,
+                ),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.blue),
+                  onChanged: (value) {
                     email = value;
                     //Do something with the user input.
                   },
@@ -82,6 +95,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       hintStyle: TextStyle(color: Colors.blue)),
                 ),
                 SizedBox(
+                  height: 8.0,
+                ),
+                TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(color: Colors.blue),
+                  onChanged: (value) {
+                    phoneNumber = value;
+                    //Do something with the user input.
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Enter your phone number',
+                      hintStyle: TextStyle(color: Colors.blue)),
+                ),
+                SizedBox(
                   height: 24.0,
                 ),
                 RoundedButton(colour: Colors.blueAccent,
@@ -98,8 +127,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           email: email, password: password);
                       if (newUser != null) {
                         DBRef.child("Government Database").push().set({
-                          'email': email,
-                          'phone number' : phoneNumber,
+                          'employee email': email,
+                          'employee phone number' : phoneNumber,
+                          'employee name' : name,
                           
                         }).then((_) {
                           setState(() {

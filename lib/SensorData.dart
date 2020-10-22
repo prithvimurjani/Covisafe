@@ -1,9 +1,9 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
 
@@ -15,11 +15,29 @@ class SensorData extends StatefulWidget {
 
 class _SensorDataState extends State<SensorData> {
   DatabaseReference ref=FirebaseDatabase.instance.reference().child('/TODAY');
+  final DBRef = FirebaseDatabase.instance.reference();
 //  DatabaseReference ref = FirebaseDatabase.instance.reference().child('MFxzpxpDiU0VdfkphsS');
 
   List lists = [];
   double latitude=85;
   double longitude=21;
+  var distanceData=20;
+  var temperatureData=20.67;
+   bool showSpinner = false;
+
+  void checker() async {
+    temperatureData=await lists[0];
+       distanceData= await lists[1];
+    if(temperatureData<50&&distanceData>100){
+         print('safe');
+       }
+    if(temperatureData>50&&distanceData<100){
+      print('unsafe');
+      print('adding data to database.....');
+       getLocation();
+    }
+    
+  }
   
   void getLocation() async{
     Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
@@ -27,14 +45,37 @@ class _SensorDataState extends State<SensorData> {
     longitude=position.longitude;
     print(longitude);
     print(latitude);
-    final coordinates = Coordinates(position.latitude,position.longitude);
-    var address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    final coordinates =  Coordinates(position.latitude,position.longitude);
+    final address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = address.first;
-    print(first.addressLine);
-    print(first.adminArea);
-    print(first.countryName);
+    String addressLine = first.addressLine;
+    String locality=first.locality;
+    String adminArea=first.adminArea;
+    String subLocality=first.subLocality;
+
+    String postalCode=first.postalCode;
     
+ 
     
+     
+   
+    DBRef.child("Affected Units").push().set({
+                          'Address' : addressLine,
+                          'Sub Locality' : subLocality,
+                          'Locality' : locality,
+                          'Admin Area': adminArea,
+                          'Postal Code' : postalCode,
+
+                          
+                        }).then((_) {
+                          setState(() {
+                            showSpinner = false;
+                          });
+
+                          
+                        }).catchError((onError) {
+                          print(onError);
+                        });
   }
 
   
@@ -42,7 +83,7 @@ class _SensorDataState extends State<SensorData> {
   @override
  void initState(){
    super.initState();
-   
+  
  }
 
 
@@ -51,58 +92,67 @@ class _SensorDataState extends State<SensorData> {
       home: SafeArea(
           child: Scaffold(
               backgroundColor: Colors.black,
-              body: Column(
-                children: <Widget>[
-                  
-                  FutureBuilder(
-                      future: ref.once(),
-                      builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
-                        if (snapshot.hasData) {
-                        //  print(snapshot.data.value);
-                           lists.clear();
-                          
-                          Map<dynamic, dynamic> values = snapshot.data.value;
-                          values.forEach((k, v) {
-                            lists.add(values[k]);
-                            print(k);
-                            print(v);
-                          });
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Card(
-                                  color: Colors.black,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        FitCardBig(parameter: 'TEMPERATURE',concurrentdata: lists[0],iconparam: Icon(Icons.healing), ),
-                                      FitCardBig(parameter: 'DISTANCE',concurrentdata: lists[1],iconparam: Icon(Icons.alarm_on), ),
-                                      
-                                      ],
-                                    ),
+              body:  ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          progressIndicator: SpinKitFadingGrid(
+            color: Colors.white,
+            size: 50.0,
+          ),
+                              child: Column(
+                  children: <Widget>[
+                    
+                    FutureBuilder(
+                        future: ref.once(),
+                        builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                          //  print(snapshot.data.value);
+                             lists.clear();
+                            
+                            Map<dynamic, dynamic> values = snapshot.data.value;
+                            values.forEach((k, v) {
+                              lists.add(values[k]);
+                              print(k);
+                              print(v);
+                            });
+                            
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Card(
+                                    color: Colors.black,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                        FitCardBig(parameter: 'TEMPERATURE',concurrentdata: lists[0].toString(),iconparam: Icon(Icons.healing), ),
+                                        FitCardBig(parameter: 'DISTANCE',concurrentdata: lists[1].toString(),iconparam: Icon(Icons.alarm_on), ),
+                                        
+                                        ],
+                                      ),
 
-                                );
-                              });
-                        }
-                        return CircularProgressIndicator();
-                      }),
-                      SizedBox(height: 100.0,),
-                      Container(
-                        height: 75.0,
-                        width: 200.0,
-                        child: RaisedButton(
-                          
-                          color: Colors.blueAccent,
-                          child: Text('Push Location'),
-                    onPressed: (){
-                        getLocation();
-                    },
-                  ),
-                      ),
-                ],
+                                  );
+                                });
+                          }
+                          return CircularProgressIndicator();
+                        }),
+                        SizedBox(height: 100.0,),
+                        Container(
+                          height: 75.0,
+                          width: 200.0,
+                          child: RaisedButton(
+                            
+                            color: Colors.blueAccent,
+                            child: Text('Push Location'),
+                      onPressed: (){
+                           checker();
+                         
+                      },
+                    ),
+                        ),
+                  ],
+                ),
               ))),
     );
   }

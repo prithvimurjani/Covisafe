@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_j_comp/Affected.dart';
 import 'package:iot_j_comp/ResetPassword.dart';
 import 'package:iot_j_comp/WelcomeScreen.dart';
 import 'package:iot_j_comp/MainCommonScreen.dart';
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
         SensorData.id:(context)=>SensorData(),
         ResetPass.id : (context)=> ResetPass(),
         SomethingElse.id : (context) => SomethingElse(),
+        Affected.id : (context) => Affected(),
       },
 
     );

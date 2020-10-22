@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_j_comp/Affected.dart';
 import 'package:iot_j_comp/SensorData.dart';
 import 'package:iot_j_comp/HomeScreen.dart';
 
@@ -19,6 +20,7 @@ class _MainCommonState extends State<MainCommon> {
     final _pageOptions = [
       SomethingElse(),
       SensorData(),
+      Affected(),
 
     ];
 
@@ -36,6 +38,10 @@ class _MainCommonState extends State<MainCommon> {
             BottomNavigationBarItem(
               icon: Icon((Icons.dashboard),),
             title: Text("Dashboard"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon((Icons.dashboard),),
+            title: Text("Affected"),
             )
           ],
           currentIndex: _selectedIndex,

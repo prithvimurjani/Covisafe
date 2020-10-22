@@ -18,7 +18,7 @@ class _SensorDataState extends State<SensorData> {
 
   List lists = [];
   double latitude=85;
-  double longitude=89;
+  double longitude=20;
   void getLocation() async{
     Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     latitude=position.latitude;

@@ -8,8 +8,17 @@ import 'package:iot_j_comp/HomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:iot_j_comp/Login.dart';
 import 'package:iot_j_comp/RegistrationScreen.dart';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 
 void main() {
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+    if (kReleaseMode)
+      exit(1);
+  };
   runApp(MyApp());
 }
 

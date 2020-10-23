@@ -4,6 +4,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vibration/vibration.dart';
+
 
 
 
@@ -34,6 +36,8 @@ class _SensorDataState extends State<SensorData> {
     if(temperatureData>50&&distanceData<100){
       print('unsafe');
       print('adding data to database.....');
+      Vibration.vibrate();
+
        getLocation();
     }
     
@@ -124,7 +128,7 @@ class _SensorDataState extends State<SensorData> {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                         FitCardBig(parameter: 'TEMPERATURE',concurrentdata: lists[0].toString(),iconparam: Icon(Icons.healing), ),
                                         FitCardBig(parameter: 'DISTANCE',concurrentdata: lists[1].toString(),iconparam: Icon(Icons.alarm_on), ),
@@ -137,7 +141,7 @@ class _SensorDataState extends State<SensorData> {
                           }
                           return CircularProgressIndicator();
                         }),
-                        SizedBox(height: 100.0,),
+                        SizedBox(height: 50.0,),
                         Container(
                           height: 75.0,
                           width: 200.0,

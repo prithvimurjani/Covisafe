@@ -10,10 +10,13 @@ class SomethingElse extends StatelessWidget {
         backgroundColor: Colors.black,
 //        backgroundColor: Colors.black,
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           
           children: <Widget>[
-            Text("GUIDELINES FOR OFFICIALS",style: TextStyle(color: Colors.blueAccent),),
-            
+            SizedBox(height: 20.0,),
+            Text("GUIDELINES FOR OFFICIALS",style: TextStyle(color: Colors.blueAccent),textAlign: TextAlign.center,),
+            SizedBox(height: 20.0,),
             FitCardBig(parameter:'Always ensure suit is worn.'),
             FitCardBig(parameter:'Ensure patient is 1 meter away.'),
             FitCardBig(parameter:'Ensure patient is wearing mask.'),

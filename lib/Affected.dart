@@ -11,8 +11,7 @@ class Affected extends StatefulWidget {
 }
 
 class _AffectedState extends State<Affected> {
-  DatabaseReference ref =
-      FirebaseDatabase.instance.reference().child('/Affected Units');
+  DatabaseReference ref = FirebaseDatabase.instance.reference().child('Affected Units').limitToFirst(3);
   List lists = [];
   bool showSpinner = false;
   @override
@@ -45,6 +44,7 @@ class _AffectedState extends State<Affected> {
                                 print(k);
                                 print(v);
                               });
+
 
                               return ListView.builder(
                                   shrinkWrap: true,

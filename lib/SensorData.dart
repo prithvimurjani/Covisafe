@@ -148,7 +148,7 @@ class _SensorDataState extends State<SensorData> {
                           child: RaisedButton(
                             
                             color: Colors.blueAccent,
-                            child: Text('Push Location'),
+                            child: Text('PUSH LOCATION',style: TextStyle(color:Colors.black,fontSize: 20),),
                       onPressed: (){
                            checker();
                          

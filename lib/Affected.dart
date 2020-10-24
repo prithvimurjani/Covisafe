@@ -11,7 +11,7 @@ class Affected extends StatefulWidget {
 }
 
 class _AffectedState extends State<Affected> {
-  DatabaseReference ref = FirebaseDatabase.instance.reference().child('Affected Units').limitToFirst(3);
+  DatabaseReference ref = FirebaseDatabase.instance.reference().child('Affected Units');
   List lists = [];
   bool showSpinner = false;
   @override
@@ -26,98 +26,94 @@ class _AffectedState extends State<Affected> {
                   color: Colors.white,
                   size: 50.0,
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      FutureBuilder(
-                          future: ref.once(),
-                          builder:
-                              (context, AsyncSnapshot<DataSnapshot> snapshot) {
-                            if (snapshot.hasData) {
-                              //  print(snapshot.data.value);
-                              lists.clear();
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  children: <Widget>[
+                    FutureBuilder(
+                        future: ref.once(),
+                        builder:
+                            (context, AsyncSnapshot<DataSnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                            //  print(snapshot.data.value);
+                            lists.clear();
 
-                              Map<dynamic, dynamic> values =
-                                  snapshot.data.value;
-                              values.forEach((k, v) {
-                                lists.add(values[k]);
-                                print(k);
-                                print(v);
-                              });
+                            Map<dynamic, dynamic> values =
+                                snapshot.data.value;
+                            values.forEach((k, v) {
+                              lists.add(values[k]);
+                              print(k);
+                              print(v);
+                            });
 
 
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: lists.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Container(
-                                      width: 340.0,
-                                      height: 200.0,
-                                      margin: EdgeInsets.fromLTRB(
-                                          10.0, 10.0, 10.0, 0.0),
-                                      decoration: BoxDecoration(
-                                        //   boxShadow: [BoxShadow(color: Colors.white,spreadRadius: 1.0,)],
-                                        color: Colors.black,
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                        border: Border.all(
-                                            color: Colors.blueAccent,
-                                            width: 2.0,
-                                            style: BorderStyle.solid),
-                                      ),
-                                      // color: Colors.black,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Center(
-                                              child: Text(
-                                            (index + 1).toString(),
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )),
-                                          Text(
-                                            'Address : ' +
-                                                lists[index]['Address'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Text(
-                                            'Sub Locality : ' +
-                                                lists[index]['Sub Locality'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Text(
-                                            'Admin Area : ' +
-                                                lists[index]['Admin Area'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Text(
-                                            'Locality : ' +
-                                                lists[index]['Locality'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Text(
-                                            'Postal code : ' +
-                                                lists[index]['Postal Code'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  });
-                            }
-                            return CircularProgressIndicator();
-                          }),
-                    ],
-                  ),
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: lists.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return Container(
+                                    width: 340.0,
+                                    height: 200.0,
+                                    margin: EdgeInsets.fromLTRB(
+                                        10.0, 10.0, 10.0, 0.0),
+                                    decoration: BoxDecoration(
+                                      //   boxShadow: [BoxShadow(color: Colors.white,spreadRadius: 1.0,)],
+                                      color: Colors.black,
+                                      borderRadius:
+                                          BorderRadius.circular(15.0),
+                                      border: Border.all(
+                                          color: Colors.blueAccent,
+                                          width: 2.0,
+                                          style: BorderStyle.solid),
+                                    ),
+                                    // color: Colors.black,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Center(
+                                            child: Text(
+                                          (index + 1).toString(),
+                                          style:
+                                              TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30),
+                                        )),
+                                        
+                                        Text(
+                                          'Sub Locality : ' +
+                                              lists[index]['Sub Locality'],
+                                          style:
+                                              TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                                        ),
+                                        Text(
+                                          'Admin Area : ' +
+                                              lists[index]['Admin Area'],
+                                          style:
+                                              TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                                        ),
+                                        Text(
+                                          'Locality : ' +
+                                              lists[index]['Locality'],
+                                          style:
+                                              TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                                        ),
+                                        Text(
+                                          'Postal code : ' +
+                                              lists[index]['Postal Code'],
+                                          style:
+                                              TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                          }
+                          return CircularProgressIndicator();
+                        }),
+                  ],
                 ),
               ))),
     );

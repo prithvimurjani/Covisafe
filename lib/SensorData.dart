@@ -35,7 +35,7 @@ class _SensorDataState extends State<SensorData> {
        }
     if(temperatureData>50&&distanceData<100){
       print('unsafe');
-      print('adding data to database.....');
+      print('adding data to database......');
       Vibration.vibrate();
 
        getLocation();

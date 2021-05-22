@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iot_j_comp/Affected.dart';
 import 'package:iot_j_comp/SensorData.dart';
 import 'package:iot_j_comp/HomeScreen.dart';
+import 'package:iot_j_comp/constants.dart';
 
 class MainCommon extends StatefulWidget {
   static const String id = "maincommonscreen";
@@ -10,10 +11,7 @@ class MainCommon extends StatefulWidget {
 }
 
 class _MainCommonState extends State<MainCommon> {
-
-  int _selectedIndex =0 ;
-
-
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +19,12 @@ class _MainCommonState extends State<MainCommon> {
       SomethingElse(),
       SensorData(),
       Affected(),
-
     ];
 
     return MaterialApp(
       color: Colors.black,
-      home: SafeArea(child: Scaffold(
+      home: SafeArea(
+          child: Scaffold(
         backgroundColor: Colors.black,
         body: _pageOptions[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -36,21 +34,25 @@ class _MainCommonState extends State<MainCommon> {
               title: Text("Home"),
             ),
             BottomNavigationBarItem(
-              icon: Icon((Icons.dashboard),),
-            title: Text("Dashboard"),
+              icon: Icon(
+                (Icons.dashboard),
+              ),
+              title: Text("Dashboard"),
             ),
             BottomNavigationBarItem(
-              icon: Icon((Icons.dashboard),),
-            title: Text("Affected"),
+              icon: Icon(
+                (Icons.dashboard),
+              ),
+              title: Text("Affected"),
             )
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blueAccent,
-          backgroundColor: Colors.black,
-          unselectedItemColor: Colors.white,
-          onTap: (int index){
+          selectedItemColor: kPinkColor,
+          backgroundColor: Colors.white,
+          unselectedItemColor: Colors.black,
+          onTap: (int index) {
             setState(() {
-              _selectedIndex=index;
+              _selectedIndex = index;
             });
           },
         ),

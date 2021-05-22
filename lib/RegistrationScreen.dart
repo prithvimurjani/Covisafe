@@ -32,7 +32,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           progressIndicator: SpinKitFadingGrid(
-            color: Colors.white,
+            color: kPinkColor,
             size: 50.0,
           ),
           child: Padding(
@@ -180,7 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             'employee phone number': phoneNumber,
                             'employee name': name,
                           }).then((_) {
-                            showToast('Glad to have you onboard $name');
+                            showToast('Glad to have you onboard $name !');
                             setState(() {
                               showSpinner = false;
                             });

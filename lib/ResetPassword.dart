@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:iot_j_comp/Login.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'constants.dart';
@@ -106,6 +107,7 @@ class _ResetPassState extends State<ResetPass> {
                           showSpinner = false;
                         });
                         showToast('Reset option has been sent to $email');
+                        Navigator.pushNamed(context, Login.id);
                       } catch (err) {
                         print(err);
                       }

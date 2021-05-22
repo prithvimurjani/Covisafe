@@ -169,6 +169,9 @@ class _LoginState extends State<Login> {
                     },
                   ),
                 ),
+                SizedBox(
+                  height: 8,
+                ),
                 GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, RegistrationScreen.id);

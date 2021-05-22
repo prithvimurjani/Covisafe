@@ -36,6 +36,7 @@ dependencies:
   geolocator: ^6.1.0
   geocoder: ^0.2.1
   vibration: ^1.7.1
+  flutter_flexible_toast: ^0.1.4
 
 
 

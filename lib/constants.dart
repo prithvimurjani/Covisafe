@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
@@ -70,3 +71,14 @@ class RoundedButton extends StatelessWidget {
 
 const kBlueColor = Color(0xFFA2DAD3);
 const kPinkColor = Color(0xFFF76F70);
+
+void showToast(msg) {
+  FlutterFlexibleToast.showToast(
+      message: msg,
+      toastLength: Toast.LENGTH_LONG,
+      toastGravity: ToastGravity.BOTTOM,
+      radius: 15,
+      elevation: 10,
+      textColor: Colors.white,
+      backgroundColor: kPinkColor);
+}

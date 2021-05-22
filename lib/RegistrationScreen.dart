@@ -180,6 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             'employee phone number': phoneNumber,
                             'employee name': name,
                           }).then((_) {
+                            showToast('Glad to have you onboard $name');
                             setState(() {
                               showSpinner = false;
                             });

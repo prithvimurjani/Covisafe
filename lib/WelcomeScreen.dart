@@ -16,33 +16,79 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
-        body:Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: ListView(
-             padding:  EdgeInsets.only(top:120,left: 8,right: 8),
-                children: <Widget>[
-                  Center(child: Text('WELCOME TO SCDAA.',style: TextStyle(color: Colors.blue,fontSize: 32.0),)),
-
-                  SizedBox(
-                    height: 150.0,
-                  ),
-                  RoundedButton(colour: Colors.blue, title: 'LOGIN',onPressed:(){ Navigator.pushNamed(context, Login.id);},),
-
-                  RoundedButton(colour: Colors.white, title: 'SIGN UP',onPressed:(){ Navigator.pushNamed(context, RegistrationScreen.id);},),
-                  Padding(
-                    padding: const EdgeInsets.only(top:25.0),
-                    child: Center(child: Text('HERE FOR YOU.',style: TextStyle(color: Colors.blue,fontSize:20.0,fontStyle: FontStyle.italic),)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:15.0),
-                    child: Icon(FontAwesome.life_saver,color: Colors.blue,size: 75.0,),
-                  ),
-                ],
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: ListView(
+            padding: EdgeInsets.only(top: 100, left: 8, right: 8),
+            children: <Widget>[
+              Center(
+                  child: Text(
+                'Welcome to CoviSafe.',
+                style: TextStyle(color: Colors.black, fontSize: 32.0),
+              )),
+              SizedBox(
+                height: 100,
               ),
-            ),
+              Image.asset(
+                'project_images/wireless_image.png',
+                scale: 1,
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: MaterialButton(
+                  color: Colors.black,
+                  child: Text(
+                    "Login >>>",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  highlightColor: kPinkColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Login.id);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: MaterialButton(
+                  color: kPinkColor,
+                  child: Text(
+                    "Sign me up!",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  highlightColor: kPinkColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RegistrationScreen.id);
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Center(
+                child: Text(
+                  'Terms and conditions apply*',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+              ),
+            ],
           ),
-
+        ),
+      ),
     );
   }
 }

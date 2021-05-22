@@ -67,7 +67,7 @@ class _SensorDataState extends State<SensorData> {
       'Locality': locality,
       'Admin Area': adminArea,
       'Postal Code': postalCode,
-      'Gender': valueMale ? valueMale : valueFemale,
+      'Gender': valueMale ? 'Male' : 'Female',
       'Age': _valueSlider,
     }).then((_) {
       setState(() {

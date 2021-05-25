@@ -254,7 +254,15 @@ class _SensorDataState extends State<SensorData> {
                                   );
                                 });
                           }
-                          return CircularProgressIndicator();
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 250.0),
+                            child: Center(
+                              child: SpinKitFadingGrid(
+                                color: kPinkColor,
+                                size: 50.0,
+                              ),
+                            ),
+                          );
                         }),
                     SizedBox(
                       height: 25.0,

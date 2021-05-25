@@ -134,7 +134,15 @@ class _AffectedState extends State<Affected> {
                                   );
                                 });
                           }
-                          return CircularProgressIndicator();
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 250.0),
+                            child: Center(
+                              child: SpinKitFadingGrid(
+                                color: kPinkColor,
+                                size: 50.0,
+                              ),
+                            ),
+                          );
                         }),
                   ],
                 ),

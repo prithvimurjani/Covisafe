@@ -144,6 +144,33 @@ class _AffectedState extends State<Affected> {
                             ),
                           );
                         }),
+                    SizedBox(
+                      height: 25.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                      child: MaterialButton(
+                        color: Colors.black,
+                        child: Text(
+                          "Tap to refresh",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        highlightColor: kPinkColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        onPressed: () {
+                          setState(() {
+                            this.widget;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25.0,
+                    ),
                   ],
                 ),
               ))),

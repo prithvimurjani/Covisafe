@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iot_j_comp/Affected.dart';
+import 'package:iot_j_comp/InfoGraphics.dart';
 import 'package:iot_j_comp/SensorData.dart';
 import 'package:iot_j_comp/HomeScreen.dart';
 import 'package:iot_j_comp/constants.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class MainCommon extends StatefulWidget {
   static const String id = "maincommonscreen";
@@ -19,6 +21,7 @@ class _MainCommonState extends State<MainCommon> {
       SomethingElse(),
       SensorData(),
       Affected(),
+      InfoGraphics(),
     ];
 
     return MaterialApp(
@@ -41,7 +44,13 @@ class _MainCommonState extends State<MainCommon> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                (Icons.dashboard),
+                (MaterialIcons.healing),
+              ),
+              title: Text("Affected"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                (Icons.bar_chart_outlined),
               ),
               title: Text("Affected"),
             )

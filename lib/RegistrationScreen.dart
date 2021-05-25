@@ -128,7 +128,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: TextField(
-                          obscureText: true,
+                          //obscureText: true,
                           //  textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           style: TextStyle(color: Colors.white),
